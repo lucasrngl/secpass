@@ -1,0 +1,21 @@
+{
+  "name": "secpass",
+  "version": "0.1.0",
+  "description": "A simple and secure password manager.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Lucas Rangel",
+    "email": "lucasrngl@hotmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.6.4",
+    "typescript": "^4.7.4"
+  }
+}
