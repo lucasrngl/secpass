@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm';
+import { User } from '../entities/User';
 
 const postgres = new DataSource({
   type: 'postgres',
@@ -7,8 +8,8 @@ const postgres = new DataSource({
   username: 'postgres',
   password: 'admin',
   database: 'secpass',
-  entities: [],
-  migrations: [],
+  entities: [User],
+  migrations: ['./src/**/migrations/*.{ts,js}'],
 });
 
 export { postgres };

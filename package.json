@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "ts-node src/server.ts",
+    "typeorm": "typeorm-ts-node-commonjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {
