@@ -29,6 +29,13 @@ O usuario pode realizar operações CRUD com sua tag.
 - Deve retornar status code `401 Unauthorized` caso alguma informação esteja incorreta (e.g senha, email)
 - Deve retornar status code `400 Bad Request` caso outra situação
 
+### 1.3 Deve ser possível atualizar o token de autenticação
+
+`POST /api/v1/refresh-token`
+
+- Deve retornar status code `201 Created` caso sucesso
+- Deve retornar status code `400 Bad Request` caso outra situação
+
 ## Cenario: gerenciamento de conta
 
 ### 2.1 Deve ser possível atualizar dados
