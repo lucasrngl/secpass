@@ -45,4 +45,18 @@ describe('User integration test suite', () => {
     expect(response.body).toHaveProperty('refreshToken');
     expect(response.body).toHaveProperty('expiresIn');
   });
+
+  it('Should be able to refresh a token', async () => {
+    await request(app).post('/api/v1/sign-up').send(user);
+    const response = await request(app)
+      .post('/api/v1/sign-in')
+      .send({ email: user.email, password: user.password });
+
+    const token = await request(app)
+      .post('/api/v1/refresh-token')
+      .send({ email: user.email, refreshToken: response.body.refreshToken });
+
+    expect(token.status).toBe(201);
+    expect(token.body).toHaveProperty('accessToken');
+  });
 });
