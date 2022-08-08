@@ -59,4 +59,23 @@ describe('User integration test suite', () => {
     expect(refreshToken.status).toBe(201);
     expect(refreshToken.body).toHaveProperty('accessToken');
   });
+
+  it('Should be able to update a user', async () => {
+    const response = await request(app).post('/api/v1/sign-up').send(user);
+
+    const updatedUser = await request(app)
+      .put(`/api/v1/settings/${response.body.id}`)
+      .send({ name: 'test2' });
+
+    console.log(updatedUser);
+
+    expect(updatedUser.status).toBe(201);
+    expect(updatedUser.body).toHaveProperty('id');
+    expect(updatedUser.body).toHaveProperty('name');
+    expect(updatedUser.body).toHaveProperty('email');
+    expect(updatedUser.body).toHaveProperty('password');
+    expect(updatedUser.body).toHaveProperty('createdAt');
+    expect(updatedUser.body).toHaveProperty('updatedAt');
+    expect(updatedUser.body.name).toBe('test2');
+  });
 });
