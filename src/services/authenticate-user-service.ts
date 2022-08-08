@@ -1,6 +1,5 @@
 import { compare } from 'bcryptjs';
-import { postgres } from '../database/postgres';
-import { User } from '../entities/User';
+import dayjs from 'dayjs';
 import { UserRepository } from '../repositories/user-repository';
 import { Service } from '../util/services/Service';
 import { GenerateAccessToken } from '../util/tokens/generate-access-token';
@@ -38,7 +37,9 @@ class AuthenticateUserService extends Service<AuthenticateUser> {
     );
     const refreshToken = GenerateRefreshToken.execute(userExists.id);
 
-    return { accessToken, refreshToken };
+    const expiresIn = dayjs().add(1, 'day').unix();
+
+    return { accessToken, refreshToken, expiresIn };
   }
 }
 
