@@ -25,6 +25,23 @@ describe('User integration test suite', () => {
     const response = await request(app).post('/api/v1/sign-up').send(user);
 
     expect(response.status).toBe(201);
-    expect(response.body).toBeTruthy();
+    expect(response.body).toHaveProperty('id');
+    expect(response.body).toHaveProperty('name');
+    expect(response.body).toHaveProperty('email');
+    expect(response.body).toHaveProperty('password');
+    expect(response.body).toHaveProperty('createdAt');
+    expect(response.body).toHaveProperty('updatedAt');
+  });
+
+  it('Should be able to authenticate a user', async () => {
+    await request(app).post('/api/v1/sign-up').send(user);
+
+    const response = await request(app)
+      .post('/api/v1/sign-in')
+      .send({ email: user.email, password: user.password });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('accessToken');
+    expect(response.body).toHaveProperty('refreshToken');
   });
 });
