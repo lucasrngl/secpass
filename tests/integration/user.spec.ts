@@ -62,12 +62,14 @@ describe('User integration test suite', () => {
 
   it('Should be able to update a user', async () => {
     const response = await request(app).post('/api/v1/sign-up').send(user);
+    const token = await request(app)
+      .post('/api/v1/sign-in')
+      .send({ email: user.email, password: user.password });
 
     const updatedUser = await request(app)
       .put(`/api/v1/settings/${response.body.id}`)
+      .auth(token.body.accessToken, { type: 'bearer' })
       .send({ name: 'test2' });
-
-    console.log(updatedUser);
 
     expect(updatedUser.status).toBe(201);
     expect(updatedUser.body).toHaveProperty('id');
