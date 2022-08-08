@@ -43,5 +43,6 @@ describe('User integration test suite', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('accessToken');
     expect(response.body).toHaveProperty('refreshToken');
+    expect(response.body).toHaveProperty('expiresIn');
   });
 });
