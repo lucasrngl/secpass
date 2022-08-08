@@ -1,13 +1,13 @@
 import { v4 as uuid } from 'uuid';
 
-abstract class Repository<T> {
+abstract class Service<T> {
   protected props: T;
-  protected _id: string;
+  protected id: string;
 
   constructor(props: T, id?: string) {
     this.props = props;
-    this._id = id ?? uuid();
+    this.id = id ?? uuid();
   }
 }
 
-export { Repository };
+export { Service };

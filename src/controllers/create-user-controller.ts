@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { UserRepository } from '../repositories/user-repository';
+import { CreateUserService } from '../services/create-user-service';
 
-class CreateUser {
+class CreateUserController {
   static async execute(request: Request, response: Response) {
     const { name, email, password } = request.body;
 
-    const result = await UserRepository.create({
+    const result = await CreateUserService.execute({
       name,
       email,
       password,
@@ -19,4 +19,4 @@ class CreateUser {
   }
 }
 
-export { CreateUser };
+export { CreateUserController };

@@ -1,38 +1,36 @@
-import { hash } from 'bcryptjs';
-import { Hash } from 'crypto';
+import { compare, hash } from 'bcryptjs';
 import { postgres } from '../database/postgres';
 import { User } from '../entities/User';
-import { Repository } from '../util/repositories/Repository';
+import { GenerateAccessToken } from '../util/tokens/generate-access-token';
+import { GenerateRefreshToken } from '../util/tokens/generate-refresh-token';
 
-type UserProps = {
-  name: string;
-  email: string;
-  password: string;
-};
-
-class UserRepository extends Repository<UserProps> {
-  private constructor(props: UserProps, id?: string) {
-    super(props, id);
-  }
-
-  static async create(props: UserProps) {
-    const userRepository = new UserRepository(props);
+class UserRepository {
+  static async create(
+    id: string,
+    name: string,
+    email: string,
+    password: string
+  ) {
     const repository = postgres.getRepository(User);
 
-    if (await repository.findOneBy({ email: userRepository.props.email })) {
-      return new Error('Email already exists');
-    }
-
     const user = repository.create({
-      id: userRepository._id,
-      name: userRepository.props.name,
-      email: userRepository.props.email,
-      password: await hash(userRepository.props.password, 8),
+      id: id,
+      name: name,
+      email: email,
+      password: await hash(password, 8),
     });
 
     await repository.save(user);
 
     return user;
+  }
+
+  static async find(email: string) {
+    const repository = postgres.getRepository(User);
+
+    const result = repository.findOneBy({ email });
+
+    return result;
   }
 }
 
