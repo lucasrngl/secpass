@@ -15,7 +15,7 @@ class CreateUserService extends Service<CreateUser> {
   static async execute(props: CreateUser) {
     const user = new CreateUserService(props);
 
-    if (await UserRepository.find(user.props.email)) {
+    if (await UserRepository.findByEmail(user.props.email)) {
       return new Error('Email already exists');
     }
 

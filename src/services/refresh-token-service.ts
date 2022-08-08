@@ -3,8 +3,8 @@ import { UserRepository } from '../repositories/user-repository';
 import { GenerateAccessToken } from '../util/tokens/generate-access-token';
 
 class RefreshTokenService {
-  static async execute(email: string, refreshToken: string) {
-    const user = await UserRepository.find(email);
+  static async execute(id: string, refreshToken: string) {
+    const user = await UserRepository.findById(id);
 
     const isValid: any = verify(
       refreshToken,

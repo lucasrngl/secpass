@@ -18,7 +18,7 @@ class AuthenticateUserService extends Service<AuthenticateUser> {
   static async execute(props: AuthenticateUser) {
     const user = new AuthenticateUserService(props);
 
-    const userExists = await UserRepository.find(user.props.email);
+    const userExists = await UserRepository.findByEmail(user.props.email);
     if (!userExists) {
       return new Error('Email or password are incorrect');
     }

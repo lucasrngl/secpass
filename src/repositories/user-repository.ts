@@ -23,10 +23,18 @@ class UserRepository {
     return user;
   }
 
-  static async find(email: string) {
+  static async findByEmail(email: string) {
     const repository = postgres.getRepository(User);
 
-    const user = repository.findOneBy({ email });
+    const user = await repository.findOneBy({ email });
+
+    return user;
+  }
+
+  static async findById(id: string) {
+    const repository = postgres.getRepository(User);
+
+    const user = await repository.findOneBy({ id });
 
     return user;
   }
