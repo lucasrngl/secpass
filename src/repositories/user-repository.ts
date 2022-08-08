@@ -26,9 +26,9 @@ class UserRepository {
   static async find(email: string) {
     const repository = postgres.getRepository(User);
 
-    const result = repository.findOneBy({ email });
+    const user = repository.findOneBy({ email });
 
-    return result;
+    return user;
   }
 }
 
