@@ -47,16 +47,16 @@ describe('User integration test suite', () => {
   });
 
   it('Should be able to refresh a token', async () => {
-    await request(app).post('/api/v1/sign-up').send(user);
-    const response = await request(app)
+    const response = await request(app).post('/api/v1/sign-up').send(user);
+    const token = await request(app)
       .post('/api/v1/sign-in')
       .send({ email: user.email, password: user.password });
 
-    const token = await request(app)
+    const refreshToken = await request(app)
       .post('/api/v1/refresh-token')
-      .send({ email: user.email, refreshToken: response.body.refreshToken });
+      .send({ id: response.body.id, refreshToken: token.body.refreshToken });
 
-    expect(token.status).toBe(201);
-    expect(token.body).toHaveProperty('accessToken');
+    expect(refreshToken.status).toBe(201);
+    expect(refreshToken.body).toHaveProperty('accessToken');
   });
 });
