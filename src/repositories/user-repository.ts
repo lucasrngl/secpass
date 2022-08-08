@@ -2,6 +2,15 @@ import { hash } from 'bcryptjs';
 import { postgres } from '../database/postgres';
 import { User } from '../entities/User';
 
+const repository = postgres.getRepository(User);
+
+type UserProps = {
+  id: string;
+  name?: string;
+  email?: string;
+  password?: string;
+};
+
 class UserRepository {
   static async create(
     id: string,
@@ -9,8 +18,6 @@ class UserRepository {
     email: string,
     password: string
   ) {
-    const repository = postgres.getRepository(User);
-
     const user = repository.create({
       id: id,
       name: name,
@@ -24,17 +31,25 @@ class UserRepository {
   }
 
   static async findByEmail(email: string) {
-    const repository = postgres.getRepository(User);
-
     const user = await repository.findOneBy({ email });
 
     return user;
   }
 
   static async findById(id: string) {
-    const repository = postgres.getRepository(User);
-
     const user = await repository.findOneBy({ id });
+
+    return user;
+  }
+
+  static async update({ id, name, email, password }: UserProps) {
+    const user = await this.findById(id);
+
+    user.name = name;
+    user.email = email ?? user.email;
+    user.password = password ? await hash(password, 8) : user.password;
+
+    await repository.save(user);
 
     return user;
   }
