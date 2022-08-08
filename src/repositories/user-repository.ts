@@ -1,8 +1,6 @@
-import { compare, hash } from 'bcryptjs';
+import { hash } from 'bcryptjs';
 import { postgres } from '../database/postgres';
 import { User } from '../entities/User';
-import { GenerateAccessToken } from '../util/tokens/generate-access-token';
-import { GenerateRefreshToken } from '../util/tokens/generate-refresh-token';
 
 class UserRepository {
   static async create(
