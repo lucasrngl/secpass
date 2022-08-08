@@ -2,9 +2,9 @@ import { Router } from 'express';
 import { AuthenticateUserController } from '../controllers/authenticate-user-controller';
 import { CreateUserController } from '../controllers/create-user-controller';
 import { RefreshTokenController } from '../controllers/refresh-token-controller';
-import { ValidateAuthenticationUserArguments } from '../middlewares/validate-authentication-user-arguments';
-import { ValidateCreateUserArguments } from '../middlewares/validate-create-user-arguments';
-import { ValidateRefreshTokenArguments } from '../middlewares/validate-refresh-token-arguments';
+import { ValidateAuthenticationUserArguments } from '../middlewares/argument-validation/validate-authentication-user-arguments';
+import { ValidateCreateUserArguments } from '../middlewares/argument-validation/validate-create-user-arguments';
+import { ValidateRefreshTokenArguments } from '../middlewares/argument-validation/validate-refresh-token-arguments';
 
 const router = Router();
 

@@ -1,15 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
 
-class ValidateRefreshTokenArguments {
+class ValidateAuthenticationUserArguments {
   static handle(request: Request, response: Response, next: NextFunction) {
-    const { id, refreshToken } = request.body;
+    const { email, password } = request.body;
 
-    if (!id || !refreshToken) {
+    if (!email || !password) {
       return response.status(400).json('Invalid arguments');
     }
 
-    next();
+    return next();
   }
 }
 
-export { ValidateRefreshTokenArguments };
+export { ValidateAuthenticationUserArguments };

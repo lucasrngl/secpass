@@ -8,7 +8,7 @@ class ValidateUpdateUserArguments {
       return response.status(400).json('Invalid arguments');
     }
 
-    next();
+    return next();
   }
 }
 
