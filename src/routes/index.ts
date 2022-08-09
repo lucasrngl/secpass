@@ -5,6 +5,6 @@ import account from './account';
 const routes = Router();
 
 routes.use('/', auth);
-routes.use('/', account);
+routes.use('/settings', account);
 
 export { routes };
