@@ -55,8 +55,6 @@ class UserRepository {
     const user = await this.findById(id);
 
     await repository.remove(user);
-
-    return;
   }
 }
 
