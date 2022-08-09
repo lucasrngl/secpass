@@ -23,7 +23,13 @@ class UpdateUserService {
       password ? await hash(password, 8) : userExists.password
     );
 
-    return result;
+    return {
+      id: result.id,
+      name: result.name,
+      email: result.email,
+      created_at: result.created_at,
+      updated_at: result.updated_at,
+    };
   }
 }
 

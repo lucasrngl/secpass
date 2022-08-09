@@ -19,7 +19,7 @@ class RefreshTokenService {
 
     const result = GenerateAccessToken.execute(user.id, user.email);
 
-    return result;
+    return { access_token: result };
   }
 }
 

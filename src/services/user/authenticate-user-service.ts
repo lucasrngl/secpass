@@ -24,7 +24,10 @@ class AuthenticateUserService {
 
     const expiresIn = dayjs().add(1, 'day').unix();
 
-    return { accessToken, refreshToken: { token: refreshToken, expiresIn } };
+    return {
+      access_token: accessToken,
+      refresh_token: { token: refreshToken, expires_in: expiresIn },
+    };
   }
 }
 

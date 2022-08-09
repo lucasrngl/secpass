@@ -26,8 +26,8 @@ class CreateUserService {
       id: result.id,
       name: result.name,
       email: result.email,
-      createdAt: result.createdAt,
-      updatedAt: result.updatedAt,
+      created_at: result.created_at,
+      updated_at: result.updated_at,
     };
   }
 }

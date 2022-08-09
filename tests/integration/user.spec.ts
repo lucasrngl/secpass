@@ -13,7 +13,7 @@ beforeAll(async () => {
 });
 
 afterEach(async () => {
-  await postgres.query('TRUNCATE TABLE users');
+  await postgres.query('TRUNCATE TABLE users, tags');
 });
 
 afterAll(async () => {
@@ -28,8 +28,8 @@ describe('User integration test suite', () => {
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('name');
     expect(response.body).toHaveProperty('email');
-    expect(response.body).toHaveProperty('createdAt');
-    expect(response.body).toHaveProperty('updatedAt');
+    expect(response.body).toHaveProperty('created_at');
+    expect(response.body).toHaveProperty('updated_at');
   });
 
   it('Should be able to authenticate a user', async () => {
@@ -40,8 +40,8 @@ describe('User integration test suite', () => {
       .send({ email: user.email, password: user.password });
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('accessToken');
-    expect(response.body).toHaveProperty('refreshToken');
+    expect(response.body).toHaveProperty('access_token');
+    expect(response.body).toHaveProperty('refresh_token');
   });
 
   it('Should be able to refresh a token', async () => {
@@ -51,14 +51,13 @@ describe('User integration test suite', () => {
       .send({ email: user.email, password: user.password });
 
     const refreshToken = await request(app)
-      .post('/api/v1/refresh-token')
+      .post(`/api/v1/refresh-token/${response.body.id}`)
       .send({
-        id: response.body.id,
-        refreshToken: token.body.refreshToken.token,
+        refresh_token: token.body.refresh_token.token,
       });
 
     expect(refreshToken.status).toBe(201);
-    expect(refreshToken.body).toHaveProperty('accessToken');
+    expect(refreshToken.body).toHaveProperty('access_token');
   });
 
   it('Should be able to update a user', async () => {
@@ -69,16 +68,15 @@ describe('User integration test suite', () => {
 
     const updatedUser = await request(app)
       .put(`/api/v1/settings/${response.body.id}`)
-      .auth(token.body.accessToken, { type: 'bearer' })
+      .auth(token.body.access_token, { type: 'bearer' })
       .send({ name: 'test2' });
 
     expect(updatedUser.status).toBe(201);
     expect(updatedUser.body).toHaveProperty('id');
     expect(updatedUser.body).toHaveProperty('name');
     expect(updatedUser.body).toHaveProperty('email');
-    expect(updatedUser.body).toHaveProperty('password');
-    expect(updatedUser.body).toHaveProperty('createdAt');
-    expect(updatedUser.body).toHaveProperty('updatedAt');
+    expect(updatedUser.body).toHaveProperty('created_at');
+    expect(updatedUser.body).toHaveProperty('updated_at');
     expect(updatedUser.body.name).toBe('test2');
   });
 
@@ -90,7 +88,7 @@ describe('User integration test suite', () => {
 
     const deletedUser = await request(app)
       .delete(`/api/v1/settings/${response.body.id}`)
-      .auth(token.body.accessToken, { type: 'bearer' });
+      .auth(token.body.access_token, { type: 'bearer' });
 
     expect(deletedUser.status).toBe(204);
   });

@@ -3,7 +3,8 @@ import { RefreshTokenService } from '../services/refresh-token-service';
 
 class RefreshTokenController {
   static async execute(request: Request, response: Response) {
-    const { id, refreshToken } = request.body;
+    const { id } = request.params;
+    const { refresh_token: refreshToken } = request.body;
 
     const result = await RefreshTokenService.execute(id, refreshToken);
 
@@ -11,7 +12,7 @@ class RefreshTokenController {
       return response.status(400).json(result.message);
     }
 
-    return response.status(201).json({ accessToken: result });
+    return response.status(201).json(result);
   }
 }
 

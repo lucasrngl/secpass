@@ -21,7 +21,7 @@ router.post(
 );
 
 router.post(
-  '/refresh-token',
+  '/refresh-token/:id',
   ValidateRefreshTokenArguments.handle,
   RefreshTokenController.execute
 );
