@@ -5,10 +5,7 @@ class AuthenticateUserController {
   static async execute(request: Request, response: Response) {
     const { email, password } = request.body;
 
-    const result = await AuthenticateUserService.execute({
-      email,
-      password,
-    });
+    const result = await AuthenticateUserService.execute(email, password);
 
     if (result instanceof Error) {
       return response.status(401).json(result.message);

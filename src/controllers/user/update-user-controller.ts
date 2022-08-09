@@ -6,7 +6,7 @@ class UpdateUserController {
     const { id } = request.params;
     const { ...user } = request.body;
 
-    const result = await UpdateUserService.execute(user, id);
+    const result = await UpdateUserService.execute(id, user);
 
     if (result instanceof Error) {
       return response.status(400).json(result.message);

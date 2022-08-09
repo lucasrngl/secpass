@@ -1,31 +1,27 @@
+import { hash } from 'bcryptjs';
 import { UserRepository } from '../../repositories/user-repository';
-import { Service } from '../../util/services/Service';
 
-type UpdateUser = {
+type User = {
   name?: string;
   email?: string;
   password?: string;
 };
 
-class UpdateUserService extends Service<UpdateUser> {
-  private constructor(props: UpdateUser, id: string) {
-    super(props, id);
-  }
+class UpdateUserService {
+  static async execute(id: string, props: User) {
+    const { name, email, password } = props;
 
-  static async execute(props: UpdateUser, id: string) {
-    const user = new UpdateUserService(props, id);
-
-    const userExists = await UserRepository.findById(user.id);
+    const userExists = await UserRepository.findById(id);
     if (!userExists) {
       return new Error('User does not exists');
     }
 
-    const result = await UserRepository.update({
-      id: user.id,
-      name: user.props.name,
-      email: user.props.email,
-      password: user.props.password,
-    });
+    const result = await UserRepository.update(
+      id,
+      name ?? userExists.name,
+      email ?? userExists.email,
+      password ? await hash(password, 8) : userExists.password
+    );
 
     return result;
   }

@@ -1,32 +1,34 @@
 import { UserRepository } from '../../repositories/user-repository';
-import { Service } from '../../util/services/Service';
+import { v4 as uuid } from 'uuid';
+import { hash } from 'bcryptjs';
 
-type CreateUser = {
-  name: string;
-  email: string;
-  password: string;
-};
-
-class CreateUserService extends Service<CreateUser> {
-  private constructor(props: CreateUser, id?: string) {
-    super(props, id);
-  }
-
-  static async execute(props: CreateUser) {
-    const user = new CreateUserService(props);
-
-    if (await UserRepository.findByEmail(user.props.email)) {
+class CreateUserService {
+  static async execute(name: string, email: string, password: string) {
+    if (await UserRepository.findByEmail(email)) {
       return new Error('Email already exists');
     }
 
-    const result = UserRepository.create(
+    const user = {
+      id: uuid(),
+      name: name,
+      email: email,
+      password: await hash(password, 8),
+    };
+
+    const result = await UserRepository.create(
       user.id,
-      user.props.name,
-      user.props.email,
-      user.props.password
+      user.name,
+      user.email,
+      user.password
     );
 
-    return result;
+    return {
+      id: result.id,
+      name: result.name,
+      email: result.email,
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+    };
   }
 }
 

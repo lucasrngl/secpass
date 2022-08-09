@@ -28,7 +28,6 @@ describe('User integration test suite', () => {
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('name');
     expect(response.body).toHaveProperty('email');
-    expect(response.body).toHaveProperty('password');
     expect(response.body).toHaveProperty('createdAt');
     expect(response.body).toHaveProperty('updatedAt');
   });
@@ -43,7 +42,6 @@ describe('User integration test suite', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('accessToken');
     expect(response.body).toHaveProperty('refreshToken');
-    expect(response.body).toHaveProperty('expiresIn');
   });
 
   it('Should be able to refresh a token', async () => {
@@ -54,7 +52,10 @@ describe('User integration test suite', () => {
 
     const refreshToken = await request(app)
       .post('/api/v1/refresh-token')
-      .send({ id: response.body.id, refreshToken: token.body.refreshToken });
+      .send({
+        id: response.body.id,
+        refreshToken: token.body.refreshToken.token,
+      });
 
     expect(refreshToken.status).toBe(201);
     expect(refreshToken.body).toHaveProperty('accessToken');
