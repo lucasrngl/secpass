@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "ts-node src/server.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "author": {
     "name": "Lucas Rangel",
