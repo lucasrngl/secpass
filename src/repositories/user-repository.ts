@@ -53,6 +53,14 @@ class UserRepository {
 
     return user;
   }
+
+  static async delete(id: string) {
+    const user = await this.findById(id);
+
+    await repository.remove(user);
+
+    return;
+  }
 }
 
 export { UserRepository };
