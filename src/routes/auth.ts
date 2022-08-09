@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { AuthenticateUserController } from '../controllers/authenticate-user-controller';
-import { CreateUserController } from '../controllers/create-user-controller';
+import { AuthenticateUserController } from '../controllers/user/authenticate-user-controller';
+import { CreateUserController } from '../controllers/user/create-user-controller';
 import { RefreshTokenController } from '../controllers/refresh-token-controller';
 import { ValidateAuthenticationUserArguments } from '../middlewares/argument-validation/validate-authentication-user-arguments';
 import { ValidateCreateUserArguments } from '../middlewares/argument-validation/validate-create-user-arguments';

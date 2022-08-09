@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { UpdateUserController } from '../controllers/update-user-controller';
+import { UpdateUserController } from '../controllers/user/update-user-controller';
 import { EnsureAuthenticated } from '../middlewares/ensure-authenticated';
 import { ValidateUpdateUserArguments } from '../middlewares/argument-validation/validate-update-user-arguments';
-import { DeleteUserController } from '../controllers/delete-user-controller';
+import { DeleteUserController } from '../controllers/user/delete-user-controller';
 
 const router = Router();
 

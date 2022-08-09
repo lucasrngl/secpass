@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { DeleteUserService } from '../services/delete-user-service';
+import { DeleteUserService } from '../../services/user/delete-user-service';
 
 class DeleteUserController {
   static async execute(request: Request, response: Response) {

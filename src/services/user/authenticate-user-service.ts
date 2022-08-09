@@ -1,9 +1,9 @@
 import { compare } from 'bcryptjs';
 import dayjs from 'dayjs';
-import { UserRepository } from '../repositories/user-repository';
-import { Service } from '../util/services/Service';
-import { GenerateAccessToken } from '../util/tokens/generate-access-token';
-import { GenerateRefreshToken } from '../util/tokens/generate-refresh-token';
+import { UserRepository } from '../../repositories/user-repository';
+import { Service } from '../../util/services/Service';
+import { GenerateAccessToken } from '../../util/tokens/generate-access-token';
+import { GenerateRefreshToken } from '../../util/tokens/generate-refresh-token';
 
 type AuthenticateUser = {
   email: string;

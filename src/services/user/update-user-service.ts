@@ -1,5 +1,5 @@
-import { UserRepository } from '../repositories/user-repository';
-import { Service } from '../util/services/Service';
+import { UserRepository } from '../../repositories/user-repository';
+import { Service } from '../../util/services/Service';
 
 type UpdateUser = {
   name?: string;

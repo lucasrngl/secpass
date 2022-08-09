@@ -1,4 +1,4 @@
-import { UserRepository } from '../repositories/user-repository';
+import { UserRepository } from '../../repositories/user-repository';
 
 class DeleteUserService {
   static async execute(id: string) {
