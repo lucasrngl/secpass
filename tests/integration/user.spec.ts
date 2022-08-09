@@ -80,4 +80,17 @@ describe('User integration test suite', () => {
     expect(updatedUser.body).toHaveProperty('updatedAt');
     expect(updatedUser.body.name).toBe('test2');
   });
+
+  it('Should be able to delete a user', async () => {
+    const response = await request(app).post('/api/v1/sign-up').send(user);
+    const token = await request(app)
+      .post('/api/v1/sign-in')
+      .send({ email: user.email, password: user.password });
+
+    const deletedUser = await request(app)
+      .delete(`/api/v1/settings/${response.body.id}`)
+      .auth(token.body.accessToken, { type: 'bearer' });
+
+    expect(deletedUser.status).toBe(204);
+  });
 });
