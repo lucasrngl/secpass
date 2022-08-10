@@ -1,18 +1,16 @@
 import { Router } from 'express';
 import { UpdateUserController } from '../controllers/user/update-user-controller';
 import { EnsureAuthenticated } from '../middlewares/ensure-authenticated';
-import { ValidateUpdateUserArguments } from '../middlewares/argument-validation/validate-update-user-arguments';
 import { DeleteUserController } from '../controllers/user/delete-user-controller';
+import { CheckUserExists } from '../middlewares/check-user-exists';
 
 const router = Router();
 
-router.put(
-  '/:id',
-  ValidateUpdateUserArguments.handle,
-  EnsureAuthenticated.handle,
-  UpdateUserController.execute
-);
+router.use(CheckUserExists.handle);
+router.use(EnsureAuthenticated.handle);
 
-router.delete('/:id', EnsureAuthenticated.handle, DeleteUserController.execute);
+router.put('/:id', UpdateUserController.execute);
+
+router.delete('/:id', DeleteUserController.execute);
 
 export default router;
