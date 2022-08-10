@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 class CreateTagService {
   static async execute(name: string, userId: any) {
-    if (await TagRepository.find(name)) {
+    if (await TagRepository.findByName(name)) {
       return new Error('Tag already exists');
     }
 
