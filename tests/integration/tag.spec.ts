@@ -13,7 +13,7 @@ beforeAll(async () => {
 });
 
 afterEach(async () => {
-  await postgres.query('TRUNCATE TABLE users, tags');
+  await postgres.query('TRUNCATE TABLE users, tags, passwords');
 });
 
 afterAll(async () => {
