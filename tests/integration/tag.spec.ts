@@ -38,4 +38,61 @@ describe('Tag integration test suite', () => {
     expect(tag.body).toHaveProperty('created_at');
     expect(tag.body).toHaveProperty('updated_at');
   });
+
+  it('Should be able to list all tags', async () => {
+    const response = await request(app).post('/api/v1/sign-up').send(user);
+    const token = await request(app)
+      .post('/api/v1/sign-in')
+      .send({ email: user.email, password: user.password });
+    await request(app)
+      .post(`/api/v1/tags/${response.body.id}`)
+      .auth(token.body.access_token, { type: 'bearer' })
+      .send({ name: 'test' });
+
+    const tags = await request(app)
+      .get(`/api/v1/tags/${response.body.id}`)
+      .auth(token.body.access_token, { type: 'bearer' });
+
+    expect(tags.status).toBe(200);
+    expect(tags.body).toHaveLength(1);
+  });
+
+  it('Should be able to update a tag', async () => {
+    const response = await request(app).post('/api/v1/sign-up').send(user);
+    const token = await request(app)
+      .post('/api/v1/sign-in')
+      .send({ email: user.email, password: user.password });
+    const tag = await request(app)
+      .post(`/api/v1/tags/${response.body.id}`)
+      .auth(token.body.access_token, { type: 'bearer' })
+      .send({ name: 'test' });
+
+    const updatedTag = await request(app)
+      .put(`/api/v1/tags/${response.body.id}/${tag.body.id}`)
+      .auth(token.body.access_token, { type: 'bearer' })
+      .send({ name: 'test2' });
+
+    expect(updatedTag.status).toBe(201);
+    expect(updatedTag.body).toHaveProperty('id');
+    expect(updatedTag.body).toHaveProperty('name');
+    expect(updatedTag.body).toHaveProperty('created_at');
+    expect(updatedTag.body).toHaveProperty('updated_at');
+  });
+
+  it('Should be able to delete a tag', async () => {
+    const response = await request(app).post('/api/v1/sign-up').send(user);
+    const token = await request(app)
+      .post('/api/v1/sign-in')
+      .send({ email: user.email, password: user.password });
+    const tag = await request(app)
+      .post(`/api/v1/tags/${response.body.id}`)
+      .auth(token.body.access_token, { type: 'bearer' })
+      .send({ name: 'test' });
+
+    const deletedTag = await request(app)
+      .delete(`/api/v1/tags/${response.body.id}/${tag.body.id}`)
+      .auth(token.body.access_token, { type: 'bearer' });
+
+    expect(deletedTag.status).toBe(204);
+  });
 });
