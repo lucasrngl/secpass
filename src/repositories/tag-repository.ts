@@ -13,10 +13,38 @@ class TagRepository {
     return tag;
   }
 
-  static async find(name: string) {
+  static async findByName(name: string) {
     const tag = await repository.findOneBy({ name });
 
     return tag;
+  }
+
+  static async findById(id: string) {
+    const tag = await repository.findOneBy({ id });
+
+    return tag;
+  }
+
+  static async findAll(id: string) {
+    const tag = await repository.findBy({ user_id: { id } });
+
+    return tag;
+  }
+
+  static async update(id: string, name: string) {
+    const tag = await this.findById(id);
+
+    tag.name = name;
+
+    await repository.save(tag);
+
+    return tag;
+  }
+
+  static async delete(id: string) {
+    const tag = await this.findById(id);
+
+    await repository.remove(tag);
   }
 }
 
