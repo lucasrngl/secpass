@@ -13,8 +13,11 @@ class TagRepository {
     return tag;
   }
 
-  static async findByName(name: string) {
-    const tag = await repository.findOneBy({ name });
+  static async findByName(name: string, userId: string) {
+    const tag = await repository.findOneBy({
+      name: name,
+      user_id: { id: userId },
+    });
 
     return tag;
   }
