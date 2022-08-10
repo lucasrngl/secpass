@@ -28,7 +28,7 @@ class PasswordRepository {
 
   static async findByTag(userId: string, tagId: string) {
     const password = await repository.findBy({
-      user_id: { id: userId },
+      // user_id: { id: userId },
       tag_id: { id: tagId },
     });
 
