@@ -1,5 +1,4 @@
 import { TagRepository } from '../../repositories/tag-repository';
-import { UserRepository } from '../../repositories/user-repository';
 
 class ListTagService {
   static async execute(userId: string) {
