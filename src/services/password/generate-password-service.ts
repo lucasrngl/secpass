@@ -4,7 +4,7 @@ class GeneratePasswordService {
   static async execute(length: number) {
     const result = GeneratePassword.execute(length);
 
-    return result;
+    return { password: result };
   }
 }
 
