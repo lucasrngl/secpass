@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateTag1660057641221 implements MigrationInterface {
+export class CreatePassword1660148932925 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'tags',
+        name: 'passwords',
         columns: [
           {
             name: 'id',
@@ -14,10 +14,17 @@ export class CreateTag1660057641221 implements MigrationInterface {
           {
             name: 'name',
             type: 'varchar',
-            isUnique: true,
+          },
+          {
+            name: 'password',
+            type: 'varchar',
           },
           {
             name: 'user_id',
+            type: 'uuid',
+          },
+          {
+            name: 'tag_id',
             type: 'uuid',
           },
           {
@@ -33,9 +40,15 @@ export class CreateTag1660057641221 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'fk_tags_user',
+            name: 'fk_passwords_user',
             columnNames: ['user_id'],
             referencedTableName: 'users',
+            referencedColumnNames: ['id'],
+          },
+          {
+            name: 'fk_passwords_tag',
+            columnNames: ['tag_id'],
+            referencedTableName: 'tags',
             referencedColumnNames: ['id'],
           },
         ],
@@ -44,6 +57,6 @@ export class CreateTag1660057641221 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('tags');
+    await queryRunner.dropTable('passwords');
   }
 }
