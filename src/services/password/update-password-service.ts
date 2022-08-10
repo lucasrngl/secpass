@@ -1,4 +1,3 @@
-import { hash } from 'bcryptjs';
 import { PasswordRepository } from '../../repositories/password-repository';
 
 class UpdatePasswordService {
@@ -12,7 +11,7 @@ class UpdatePasswordService {
     const result = await PasswordRepository.update(
       passwordId,
       name ?? pass.name,
-      password ? await hash(password, 8) : pass.password
+      password ?? pass.password
     );
 
     return result;

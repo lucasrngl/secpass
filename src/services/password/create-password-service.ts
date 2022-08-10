@@ -1,4 +1,3 @@
-import { hash } from 'bcryptjs';
 import { v4 as uuid } from 'uuid';
 import { PasswordRepository } from '../../repositories/password-repository';
 
@@ -7,7 +6,7 @@ class CreatePasswordService {
     const password = {
       id: uuid(),
       name: name,
-      password: await hash(pass, 8),
+      password: pass,
       user_id: userId,
       tag_id: tagId,
     };
