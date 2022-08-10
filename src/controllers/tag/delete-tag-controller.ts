@@ -3,9 +3,9 @@ import { DeleteTagService } from '../../services/tag/delete-tag-service';
 
 class DeleteTagController {
   static async execute(request: Request, response: Response) {
-    const { id: userId, tag: tagId } = request.params;
+    const { tag: tagId } = request.params;
 
-    const result = await DeleteTagService.execute(userId, tagId);
+    const result = await DeleteTagService.execute(tagId);
 
     if (result instanceof Error) {
       return response.status(400).json(result.message);
