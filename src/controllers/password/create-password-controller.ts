@@ -4,7 +4,7 @@ import { CreatePasswordService } from '../../services/password/create-password-s
 class CreatePasswordController {
   static async execute(request: Request, response: Response) {
     const { id: userId } = request.params;
-    const { name, password, tagId } = request.body;
+    const { name, password, tag: tagId } = request.body;
 
     const result = await CreatePasswordService.execute(
       name,
