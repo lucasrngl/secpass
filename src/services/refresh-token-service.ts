@@ -7,9 +7,9 @@ class RefreshTokenService {
     const user = await UserRepository.findById(id);
 
     try {
-      verify(refreshToken, 'ea7e2c09-c254-45a4-ae0a-b37b54f00a64', {
-        audience: 'refreshToken',
-        issuer: 'http://localhost:3000',
+      verify(refreshToken, process.env.KEY, {
+        audience: process.env.AUD_REFRESH,
+        issuer: process.env.ISSUER,
         subject: user.id,
         complete: true,
       });

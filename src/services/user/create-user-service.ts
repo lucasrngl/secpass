@@ -12,7 +12,7 @@ class CreateUserService {
       id: uuid(),
       name: name,
       email: email,
-      password: await hash(password, 8),
+      password: await hash(password, Number(process.env.SALT)),
     };
 
     const result = await UserRepository.create(

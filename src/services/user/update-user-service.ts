@@ -20,7 +20,9 @@ class UpdateUserService {
       id,
       name ?? userExists.name,
       email ?? userExists.email,
-      password ? await hash(password, 8) : userExists.password
+      password
+        ? await hash(password, Number(process.env.SALT))
+        : userExists.password
     );
 
     return {

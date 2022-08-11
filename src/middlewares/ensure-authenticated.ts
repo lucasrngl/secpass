@@ -12,7 +12,7 @@ class EnsureAuthenticated {
     const [, token] = authToken.split(' ');
 
     try {
-      verify(token, 'ea7e2c09-c254-45a4-ae0a-b37b54f00a64');
+      verify(token, process.env.KEY);
 
       return next();
     } catch (error) {

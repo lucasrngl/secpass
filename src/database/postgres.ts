@@ -5,11 +5,11 @@ import { User } from '../entities/User';
 
 const postgres = new DataSource({
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: 'admin',
-  database: 'secpass',
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_SCHEMA,
   entities: [User, Tag, Password],
   migrations: ['./src/**/migrations/*.{ts,js}'],
 });

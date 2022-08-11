@@ -2,9 +2,9 @@ import { sign } from 'jsonwebtoken';
 
 class GenerateRefreshToken {
   static execute(userId: string) {
-    const token = sign({}, 'ea7e2c09-c254-45a4-ae0a-b37b54f00a64', {
-      audience: 'refreshToken',
-      issuer: 'http://localhost:3000',
+    const token = sign({}, process.env.KEY, {
+      audience: process.env.AUD_REFRESH,
+      issuer: process.env.ISSUER,
       subject: userId,
       expiresIn: '1d',
     });
