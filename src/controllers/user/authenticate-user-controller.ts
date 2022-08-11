@@ -8,7 +8,7 @@ class AuthenticateUserController {
     const result = await AuthenticateUserService.execute(email, password);
 
     if (result instanceof Error) {
-      return response.status(401).json(result.message);
+      return response.status(400).json(result.message);
     }
 
     return response.status(200).json(result);
