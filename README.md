@@ -29,7 +29,7 @@ All you need to run is:
 
 ## Testing
 
-There are available **Integration Tests** in the project and you can run all the tests typing `npm test`.
+There are **Integration Tests** available in the project and you can run all the tests by running `npm test`.
 
 ## API Documentation
 
