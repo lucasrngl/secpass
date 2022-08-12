@@ -1,6 +1,6 @@
 # SecPass
 
-SecPass is a platform to password management.
+SecPass is a platform for password management.
 
 In our platform, you can just create an account and use all the features we provide.
 
